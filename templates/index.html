@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="/static/jquery-1.12.4.min.js"></script>
+    <script>
+        $(function () {
+            $('#btn').click(function () {
+                $.ajax({
+                    url:"/index/",
+                    type:"post",
+                    //如果有dataType这个，后面后不用序列化成js对象
+                    dataType:"json",
+                    data:{"name":"阿里巴巴","age":18,"list01":JSON.stringify(["aa","bb","cc"])},
+                    success:function (data) {
+                        $('#btn').next().html(data.error);
+                        alert(data.status);
+                        //把后端返回的数据返序列化成js对象
+                        // var data = JSON.parse(data)
+                        if (data.status === 0){
+                            alert(data.company);
+
+                        }else {
+                            alert(data.error);
+
+                        }
+                    }
+                })
+
+            })
+
+
+        })
+
+    </script>
+</head>
+<body>
+<form action="/ajax01/" method="post">
+    <input type="button" name="btn" value="提交" id="btn">
+
+    <span style="color: #e62e2e"></span>
+</form>
+
+
+</body>
+</html>
